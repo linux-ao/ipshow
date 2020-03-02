@@ -1,0 +1,14 @@
+Package:ipshow
+Version: 0.3
+Priority:
+Architecture: all
+Essential:
+Depends:
+Pre-depends:
+Suggests:
+Installed-Size:
+Maintainer: LNS, ASRD and DAL
+Conflicts:
+Replaces:
+Provides:
+Description: Command for display information interfaces

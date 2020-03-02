@@ -1,0 +1,37 @@
+#!/bin/bash
+# Information: Script show information of network parametres
+# Version: 0.0.3
+# Autors:
+#       ASRD    - Alex Dias - alex@linux
+#       DAL     - Decio Lilunga - decio@linux.ao
+#       LNS     - Luriel Santana - luriel@linux
+
+# Variable get
+iface=`/sbin/ifconfig | grep mtu | tr -s " " | cut -d " " -f 1 | tr ":" " " | grep -v lo`
+
+show_info()
+{
+nic=$1
+
+ip=`/sbin/ifconfig ${nic}  |  awk '/inet/ {print}' | awk '{print $2}' | head -1`
+ip6=`/sbin/ifconfig ${nic}  |  awk '/inet6/ {print}' | awk '{print $2}' | head -1`
+mask=`/sbin/ifconfig ${nic}  |  awk '/inet/ {print}' | awk '{print $4}' | head -1`
+gw=`/sbin/route -n | awk '/'${nic}'/ {print}' | awk '{print $2}' | head -1`
+mac=`/sbin/ifconfig ${nic}  |  awk '/ether/ {print}' | awk '{print $2}' | head -1`
+
+# Show Out put Information
+echo "Interface: $nic"
+echo "   v4  IP: $ip"
+echo "       MK: $mask"
+echo "       GW: $gw"
+echo "       MC: $mac"
+echo " "
+echo "   v6  IP: $ip6"
+}
+
+# Loop show Information
+for i in $iface
+do
+        show_info $i
+        echo " "
+done
